@@ -105,7 +105,7 @@ function getPoint(number) {
 
 function jump({ x: x1, y: y1 }, { x: x2, y: y2 }) {
     const distance = Math.sqrt(Math.abs(x1 - x2) ** 2 + Math.abs(y1 - y2) ** 2);
-    let press_time = distance * 1.393;
+    let press_time = distance * 1.325;
     press_time = Math.max(press_time, 200);
     press_time = Math.round(press_time);
     let cmd = `adb shell input swipe 500 1600 500 1601 ${press_time}`;
