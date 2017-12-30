@@ -5,8 +5,8 @@ var Canvas = require('canvas'),
 const shell = require('shelljs');
 
 function pull_screenshot() {
-    shell.exec('adb shell screencap -p /sdcard/1.png');
-    shell.exec('adb pull /sdcard/1.png .');
+    // shell.exec('adb shell screencap -p /sdcard/1.png');
+    shell.exec('adb shell screencap -p  > 1.png');
 }
 // pull_screenshot();
 
