@@ -14,8 +14,8 @@ function getBrightness(r, g, b) {
     return Math.round(0.3 * r + 0.59 * g + 0.11 * b);
 }
 
-function getPoint(number) {
-    let squid = fs.readFileSync(__dirname + '/1.png');
+function getPoint(number, url = __dirname + '/1.png') {
+    let squid = fs.readFileSync(url);
     img = new Image();
     img.src = squid;
     let width = img.width;
@@ -39,13 +39,17 @@ function getPoint(number) {
             var green = data[offset + 1];
             var blue = data[offset + 2];
             brightness[j] = brightness[j] ? brightness[j] : [];
+            let gray = getBrightness(red, green, blue);
             brightness[j][i] = getBrightness(red, green, blue);
+            imageData.data[offset] = gray;
+            imageData.data[offset+1] = gray;
+            imageData.data[offset+1] = gray;
             // console.log(j, i, red,green,blue)
         }
     }
 
     let hh = {};
-    let maxCount = 0;
+    let hhMax = 0;
     for (let line = 800; line < 1500; line++) {
         item = brightness[line];
         let count = 0;
@@ -54,8 +58,8 @@ function getPoint(number) {
             if (point > 40 && point < 65 && (lastIndex === 0 || lastIndex == index - 1)) {
                 count++;
             } else {
-                if (maxCount < count) {
-                    maxCount = count;
+                if (hhMax < count) {
+                    hhMax = count;
                     hh = {
                         x: index - Math.round(count / 2),
                         y: line,
@@ -70,31 +74,59 @@ function getPoint(number) {
     console.log('heihei', hh);
     let boxMax = 0;
     const box = {};
-    for (let y = 500; y <= hh.y; y++) {
+    for (let y = 600; y <= hh.y; y++) {
         const line = brightness[y];
+        const length = line.length;
         const base = line[0];
         let count = 0;
-        line.map((point, x) => {
-            if (point <= base - 2 || point >= base + 2) {
+        let count245 = 0;
+        for (let x = 0; x < line.length; x++) {
+          const point = line[x];
+          let avg = point;
+          if (x > 0 && x < length - 1) {
+            avg = (line[x - 1] + point + line[x + 1]) / 3;
+          }
+          if (point == 245) {
+            count245++ //白色顶点
+          }
+            if (count245 > 30) {
+                box.y = y;
+                box.x = x - Math.round(count245 / 2);
+                break;
+            }
+            if (avg < base - 2 || avg >= base + 2) {
                 count++;
+                // console.log(y, x ,point)
             } else {
-                if (count >= boxMax * 1.5) {
+                if (count >= boxMax) {
                     boxMax = count;
                     box.y = y;
                     box.x = x - Math.round(count / 2);
                 }
                 count = 0;
             }
-        });
-        if (boxMax > maxCount) {
+        };
+        
+
+        if (boxMax > hhMax * 1.5 || (count < boxMax && boxMax > hhMax * 1.18) || count245 > 30) {
+          // console.log(JSON.stringify(line), boxMax)
             break;
         }
     }
     console.log('box', box);
+    ctx.putImageData(imageData, 0, 0); 
     ctx.beginPath();
     ctx.moveTo(box.x, box.y);
     ctx.lineTo(hh.x, hh.y);
     ctx.stroke();
+    // ctx.beginPath();
+    // ctx.moveTo(0, 600);
+    // ctx.lineTo(1080, 600);
+    // ctx.stroke();
+    // ctx.beginPath();
+    // ctx.moveTo(0, 1500);
+    // ctx.lineTo(1080, 1500);
+    // ctx.stroke();
     var buf = canvas.toBuffer();
     fs.writeFile(`./log/${number}.png`, buf);
     return {
@@ -105,7 +137,7 @@ function getPoint(number) {
 
 function jump({ x: x1, y: y1 }, { x: x2, y: y2 }) {
     const distance = Math.sqrt(Math.abs(x1 - x2) ** 2 + Math.abs(y1 - y2) ** 2);
-    let press_time = distance * 1.393;
+    let press_time = distance * 1.305;
     press_time = Math.max(press_time, 200);
     press_time = Math.round(press_time);
     let cmd = `adb shell input swipe 500 1600 500 1601 ${press_time}`;
@@ -119,8 +151,18 @@ function auto(params) {
   pull_screenshot();
   let {hh, box} = getPoint(number);
   jump(box, hh);
-  setTimeout(auto, 2000);
+  setTimeout(auto, 1250); // 时间可以自己调整
   number ++
 }
 shell.rm('./log/*.png');
 auto()
+
+// getPoint(1, __dirname + '/badcase/1.png')
+// getPoint(6, __dirname + '/badcase/6.png')
+// getPoint(12, __dirname + '/badcase/12.png')
+// getPoint(38, __dirname + '/badcase/38.png')
+// getPoint(97, __dirname + '/badcase/97.png')
+// getPoint(128, __dirname + '/badcase/128.png')
+// getPoint(129, __dirname + '/badcase/129.png')
+// getPoint(97, __dirname + '/badcase/97.png')
+// getPoint(90, __dirname + '/badcase/90.png')
