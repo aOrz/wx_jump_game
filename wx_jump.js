@@ -156,6 +156,7 @@ function auto(params) {
 }
 shell.rm('./log/*.png');
 auto()
+<<<<<<< HEAD
 
 // getPoint(1, __dirname + '/badcase/1.png')
 // getPoint(6, __dirname + '/badcase/6.png')
@@ -166,3 +167,5 @@ auto()
 // getPoint(129, __dirname + '/badcase/129.png')
 // getPoint(97, __dirname + '/badcase/97.png')
 // getPoint(90, __dirname + '/badcase/90.png')
+=======
+>>>>>>> 96753c574ef4b5f7bfa5bd22261a2e946e84ccf1
