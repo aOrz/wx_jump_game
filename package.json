@@ -9,12 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.17.1",
     "canvas": "^1.6.9",
-    "crawler": "^1.1.2",
     "gm": "^1.23.1",
-    "jsonschema": "^1.2.2",
-    "opencv": "^6.0.0",
     "shelljs": "^0.7.8"
   }
 }
