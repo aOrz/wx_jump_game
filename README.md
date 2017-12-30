@@ -22,3 +22,7 @@ Windows `https://github.com/Automattic/node-canvas/wiki/Installation---Windows`
 ## 鸣谢
 
 感谢 @wangshub ，让我们解锁了一个玩游戏的新方式~~
+
+## demo
+
+![](/demo/index.jpeg)
