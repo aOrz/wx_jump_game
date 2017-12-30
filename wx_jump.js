@@ -43,13 +43,6 @@ function getPoint(number) {
             // console.log(j, i, red,green,blue)
         }
     }
-    // fs.writeFile('./2.png', buf)
-    // console.log(JSON.stringify(brightness))
-    // 0.54843
-    // brightness[Math.round(0.54843 * brightness.length)].map(item => {
-    //   // console.log(item);
-    // })
-    // console.log('ans', Math.round(0.54843 * brightness.length))
 
     let hh = {};
     let maxCount = 0;
@@ -75,7 +68,6 @@ function getPoint(number) {
     }
 
     console.log('heihei', hh);
-    // console.log(JSON.stringify(brightness[hh.y]))
     let boxMax = 0;
     const box = {};
     for (let y = 500; y <= hh.y; y++) {
@@ -130,5 +122,5 @@ function auto(params) {
   setTimeout(auto, 2000);
   number ++
 }
-
+shell.rm('./log/*.png');
 auto()
