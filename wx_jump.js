@@ -14,7 +14,7 @@ function getBrightness(r, g, b) {
     return Math.round(0.3 * r + 0.59 * g + 0.11 * b);
 }
 
-function getPoint() {
+function getPoint(number) {
     let squid = fs.readFileSync(__dirname + '/1.png');
     img = new Image();
     img.src = squid;
@@ -83,10 +83,10 @@ function getPoint() {
         const base = line[0];
         let count = 0;
         line.map((point, x) => {
-            if (point <= base - 10 || point >= base + 10) {
+            if (point <= base - 2 || point >= base + 2) {
                 count++;
             } else {
-                if (count >= boxMax) {
+                if (count >= boxMax * 1.5) {
                     boxMax = count;
                     box.y = y;
                     box.x = x - Math.round(count / 2);
@@ -104,7 +104,7 @@ function getPoint() {
     ctx.lineTo(hh.x, hh.y);
     ctx.stroke();
     var buf = canvas.toBuffer();
-    fs.writeFile('./2.png', buf);
+    fs.writeFile(`./log/${number}.png`, buf);
     return {
         box,
         hh,
@@ -122,12 +122,13 @@ function jump({ x: x1, y: y1 }, { x: x2, y: y2 }) {
 }
 // jump(box, hh);
 
-
+let number = 0;
 function auto(params) {
   pull_screenshot();
-  let {hh, box} = getPoint();
+  let {hh, box} = getPoint(number);
   jump(box, hh);
-  setTimeout(auto, 1000);
+  setTimeout(auto, 2000);
+  number ++
 }
 
 auto()
