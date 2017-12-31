@@ -25,4 +25,4 @@ Windows `https://github.com/Automattic/node-canvas/wiki/Installation---Windows`
 
 ## demo
 
-![](/demo/index.jpeg)
+![](/demo/index.png)
