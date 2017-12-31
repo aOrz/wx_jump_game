@@ -22,14 +22,6 @@ Windows `https://github.com/Automattic/node-canvas/wiki/Installation---Windows`
 
 `node wx_bump.js`
 
-或者 
-
-`npm i -g wechat-jump-game`
-
-执行命令
-
-`jump`
-
 ## 其他
 
 如果跳不过去，试试调一调时间系数，wx_jump.js 192行左右 `let press_time = distance * 1.31; // 时间系数，不准的话可以先调这个，系数越大，跳的越远`
