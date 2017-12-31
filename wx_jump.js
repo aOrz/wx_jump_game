@@ -45,11 +45,11 @@ function getPoint(number, url = __dirname + '/1.png') {
         };
     }
 
-    let { red: red1, blue: blue1, green: green1 } = get3(0, 0);
-    let { red: red2, blue: blue2, green: green2 } = get3(width - 1, 0);
+    let { red: red1, blue: blue1, green: green1 } = get3(200, 200);
+    let { red: red2, blue: blue2, green: green2 } = get3(width - 200, 2000);
 
-    let { red: red4, blue: blue4, green: green4 } = get3(0, height - 1);
-    let { red: red3, blue: blue3, green: green3 } = get3(width - 1, height - 1);
+    let { red: red4, blue: blue4, green: green4 } = get3(200, height - 200);
+    let { red: red3, blue: blue3, green: green3 } = get3(width - 200, height - 200);
 
     let redMax = Math.max(red1, red2, red3, red4);
     let redMin = Math.min(red1, red2, red3, red4);
@@ -206,7 +206,7 @@ shell.rm('./log/*.png');
 
 // function debug(params) {
 //     let arr = [1, 2, 6, 10, 12, 38, 42, 47, 97, 121, 128, 129, 90, 174, 221, 108, 24];
-//     // arr = [121];
+//     arr = [121];
 //     arr.forEach(item => {
 //         getPoint(item, __dirname + `/badcase/${item}.png`);
 //     });
