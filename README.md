@@ -4,7 +4,7 @@
 
 先安装 node 和 一些依赖，
 
-安装 `adb`
+安装 `adb`，[https://www.jianshu.com/p/1b3fb1f27b67](https://www.jianshu.com/p/1b3fb1f27b67)
 
 canvas 依赖
 
@@ -14,8 +14,31 @@ Windows `https://github.com/Automattic/node-canvas/wiki/Installation---Windows`
 
 ## 开始
 
-确保依赖安装正确，手机连接到电脑上，打开调试，使用 adb 命令可以连接上时，执行本（`node wx_bump.js`）脚本即可。
+确保依赖安装正确，手机连接到电脑上，打开USB调试，使用 adb 命令可以连接上时，执行本
 
+`git clone git@github.com:aOrz/wx_jump_game.git`
+
+`cd wx_jump_game`
+
+`node wx_bump.js`
+
+或者 
+
+`npm i -g wechat-jump-game`
+
+执行命令
+
+`jump`
+
+## 其他
+
+如果跳不过去，试试调一调时间系数，wx_jump.js 192行左右 `let press_time = distance * 1.31; // 时间系数，不准的话可以先调这个，系数越大，跳的越远`
+
+### 一些参考
+
+华为P9 plus 分辨率： 1080 1920 系数： 1.31，3000+分
+
+魅蓝 A5 分辨率 720 1280 系数 1.95，625分（还可以优化哦~）
 ## 文章
 
 [手把手教你用 node 玩跳一跳](https://fddcn.cn/wechat-jump.html)
