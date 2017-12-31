@@ -46,7 +46,7 @@ function getPoint(number, url = __dirname + '/1.png') {
     }
 
     let { red: red1, blue: blue1, green: green1 } = get3(200, 200);
-    let { red: red2, blue: blue2, green: green2 } = get3(width - 200, 2000);
+    let { red: red2, blue: blue2, green: green2 } = get3(width - 200, 200);
 
     let { red: red4, blue: blue4, green: green4 } = get3(200, height - 200);
     let { red: red3, blue: blue3, green: green3 } = get3(width - 200, height - 200);
@@ -57,8 +57,8 @@ function getPoint(number, url = __dirname + '/1.png') {
     let blueMin = Math.min(blue1, blue2, blue3, blue4);
     let greenMax = Math.max(green1, green2, green3, green4);
     let greenMin = Math.min(green1, green2, green3, green4);
-
-    for (let j = 600; j < 1500; j += 1) {
+    console.log(redMax)
+    for (let j = Math.round(600 / 1920 * height); j < 1500 / 1920 * height; j += 1) {
         for (let i = 0; i < width; i += 1) {
           let { red, blue, green } = get3(i, j);
             if (
@@ -92,7 +92,7 @@ function getPoint(number, url = __dirname + '/1.png') {
 
     let hh = {};
     let hhMax = 0;
-    for (let line = 800; line < 1500; line++) {
+    for (let line = Math.round(800 / 1920 * height); line < 1500 / 1920 * height; line++) {
         item = brightness[line];
         let count = 0;
         let lastIndex = 0;
@@ -117,7 +117,7 @@ function getPoint(number, url = __dirname + '/1.png') {
     console.log('heihei', hh);
     let boxMax = 0;
     const box = {};
-    for (let y = 600; y <= hh.y; y++) {
+    for (let y = Math.round(600 / 1920 * height); y <= hh.y; y++) {
         const line = brightness[y];
         const length = line.length;
         const base = line[0];
