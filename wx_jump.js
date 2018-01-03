@@ -192,7 +192,7 @@ function jump({ x: x1, y: y1 }, { x: x2, y: y2 }) {
     let press_time = distance * 1.31; // 时间系数，不准的话可以先调这个，系数越大，跳的越远
     press_time = Math.max(press_time, 200);
     press_time = Math.round(press_time);
-    let cmd = `adb shell input swipe 200 200 200 200 ${press_time}`; // 模拟点击屏幕的命令
+    let cmd = `adb shell input swipe 500 1600 500 1601 ${press_time}`; // 模拟点击屏幕的命令
     shell.exec(cmd);
 }
 // jump(box, hh);
@@ -204,8 +204,9 @@ function auto(params) {
     let { hh, box } = getPoint(number);
     console.log('我要起飞啦！');
     jump(box, hh);
-    console.log('休息一会儿~');
-    setTimeout(auto, 1250); // 时间可以自己调整，避免新的棋盘没有落下来，就开始截屏了，这样找到的点就不准了，具体时间要看手机的性能
+    console.log('随机休息一会儿~');
+    let sleepTime = Math.round(Math.random() * 400 + 1250);// 时间可以自己调整，避免新的棋盘没有落下来，就开始截屏了，这样找到的点就不准了，具体时间要看手机的性能
+    setTimeout(auto, sleepTime); 
     number++;
 }
 shell.rm('./log/*.png');
