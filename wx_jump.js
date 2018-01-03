@@ -188,7 +188,7 @@ function getPoint(number, url = __dirname + '/1.png') {
 }
 
 function jump({ x: x1, y: y1 }, { x: x2, y: y2 }) {
-    const distance = Math.sqrt(Math.abs(x1 - x2) ** 2 + Math.abs(y1 - y2) ** 2); // 计算两点之间的距离
+    const distance = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)); // 计算两点之间的距离
     let press_time = distance * 1.31; // 时间系数，不准的话可以先调这个，系数越大，跳的越远
     press_time = Math.max(press_time, 200);
     press_time = Math.round(press_time);
