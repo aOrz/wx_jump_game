@@ -20,6 +20,8 @@ Windows `https://github.com/Automattic/node-canvas/wiki/Installation---Windows`
 
 `cd wx_jump_game`
 
+`npm i`
+
 `node wx_jump.js`
 
 ## 其他
