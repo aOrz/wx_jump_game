@@ -10,6 +10,10 @@ function pull_screenshot() {
     shell.exec('adb shell screencap -p /sdcard/1.png');
     shell.exec('adb pull /sdcard/1.png .');
 }
+
+function getRandom(max) {
+  return Math.round(Math.random() * (max * 1/4)) + (max * 1/4);
+}
 // 图片灰度，就是讲 rgb 三个通道的颜色降为一个维度，会丢失部分信息
 function getBrightness(r, g, b) {
     return Math.round(0.3 * r + 0.59 * g + 0.11 * b);
@@ -184,15 +188,17 @@ function getPoint(number, url = __dirname + '/1.png') {
     return {
         box,
         hh,
+        width,
+        height
     };
 }
 
-function jump({ x: x1, y: y1 }, { x: x2, y: y2 }) {
+function jump({ x: x1, y: y1 }, { x: x2, y: y2 }, width, height) {
     const distance = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)); // 计算两点之间的距离
     let press_time = distance * 1.31; // 时间系数，不准的话可以先调这个，系数越大，跳的越远
     press_time = Math.max(press_time, 200);
     press_time = Math.round(press_time);
-    let cmd = `adb shell input swipe 500 1600 500 1601 ${press_time}`; // 模拟点击屏幕的命令
+    let cmd = `adb shell input swipe ${width} ${height} ${width} ${height} ${press_time}`; // 模拟点击屏幕的命令
     shell.exec(cmd);
 }
 // jump(box, hh);
@@ -201,9 +207,9 @@ let number = 0;
 function auto(params) {
     console.log('获取屏幕截图');
     pull_screenshot();
-    let { hh, box } = getPoint(number);
+    let { hh, box, width, height } = getPoint(number);
     console.log('我要起飞啦！');
-    jump(box, hh);
+    jump(box, hh, getRandom(width), getRandom(height));
     console.log('随机休息一会儿~');
     let sleepTime = Math.round(Math.random() * 400 + 1250);// 时间可以自己调整，避免新的棋盘没有落下来，就开始截屏了，这样找到的点就不准了，具体时间要看手机的性能
     setTimeout(auto, sleepTime); 
