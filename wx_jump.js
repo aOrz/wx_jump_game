@@ -7,8 +7,12 @@ var Canvas = require('canvas'),
 const shell = require('shelljs');
 // 通过 adb 将手机截屏拉到项目目录下
 function pull_screenshot() {
-    shell.exec('adb shell screencap -p /sdcard/1.png');
-    shell.exec('adb pull /sdcard/1.png .');
+    if (shell.exec('adb shell screencap -p /sdcard/1.png').code !== 0) {
+        throw new Error('Failed to capture screenshot with adb');
+    }
+    if (shell.exec('adb pull /sdcard/1.png .').code !== 0) {
+        throw new Error('Failed to pull screenshot with adb');
+    }
 }
 
 function getRandom(max) {
@@ -20,7 +24,7 @@ function getBrightness(r, g, b) {
 }
 
 // 获取小人和棋盘的坐标
-function getPoint(number, url = __dirname + '/1.png') {
+function getPoint(number, url = './1.png') {
     let squid = fs.readFileSync(url);
     img = new Image();
     img.src = squid;
