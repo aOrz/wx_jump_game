@@ -7,7 +7,7 @@
     "jump": "wx_jump.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test/screenshot.js",
     "start": "node ./wx_jump.js"
   },
   "author": "",
